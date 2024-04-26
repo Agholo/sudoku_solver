@@ -92,6 +92,12 @@ function App() {
 							? ""
 							: styles.nan
 					}`}
+					style={{
+						borderBottom:
+							(i >= 18 && i < 27) || (i >= 45 && i < 54)
+								? "3px solid black"
+								: "1px solid black",
+					}}
 					onClick={() => (choose === i ? setChoose(NaN) : setChoose(i))}
 				>
 					{Number.isNaN(number[i]) ? "" : number[i]}
