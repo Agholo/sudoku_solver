@@ -29,6 +29,7 @@ function isValid(board, n, y, x) {
 function App() {
 	const [choose, setChoose] = useState(NaN);
 	const [number, setNumber] = useState(Array.from({ length: 81 }, () => NaN));
+	// const [error, setError] = useState("");
 
 	// works soo slow i don't know why
 
@@ -74,6 +75,7 @@ function App() {
 			}
 			return true;
 		}
+		// setError("");
 		setChoose(NaN);
 		solver(board);
 		setNumber([].concat(...board));
@@ -94,9 +96,11 @@ function App() {
 					}`}
 					style={{
 						borderBottom:
-							(i >= 18 && i < 27) || (i >= 45 && i < 54)
-								? "3px solid black"
-								: "1px solid black",
+							(i >= 18 && i < 27) || (i >= 45 && i < 54) || (i >= 72 && i < 82)
+								? "3px solid #00367F"
+								: "1px solid #DBDBDB",
+						borderTop:
+							i >= 0 && i < 9 ? "3px solid #00367F" : "1px solid #DBDBDB",
 					}}
 					onClick={() => (choose === i ? setChoose(NaN) : setChoose(i))}
 				>
@@ -152,7 +156,7 @@ function App() {
 				onClick={() => setNumber(Array.from({ length: 81 }, () => NaN))}
 				title="Delete all"
 			>
-				CC
+				AC
 			</button>
 		);
 		return arr;

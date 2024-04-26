@@ -10,7 +10,8 @@
 .button {
   height: 100px;
   font-size: 30px;
-  background-color: #E2EBF3;
+  background-color: white;
+  border: 1px solid #DBDBDB;
 }
 
 .numCont {
@@ -26,7 +27,7 @@
 }
 
 .nan {
-  background-color: white;
+  background-color: #E2EBF3;
 }
 
 .solve {
@@ -45,5 +46,9 @@
 }
 
 .board button:nth-child(3n) {
-  border-right: 3px solid black;
+  border-right: 3px solid #00367F;
+}
+
+.board button:nth-child(9n + 1) {
+  border-left: 3px solid #00367F;
 }
