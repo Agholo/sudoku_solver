@@ -87,13 +87,7 @@ function App() {
 			arr.push(
 				<button
 					key={i}
-					className={`${styles.button} ${
-						choose === i
-							? styles.choosed
-							: Number.isNaN(choose)
-							? ""
-							: styles.nan
-					}`}
+					className={`${styles.button} ${choose === i && styles.choosed}`}
 					style={{
 						borderBottom:
 							(i >= 18 && i < 27) || (i >= 45 && i < 54) || (i >= 72 && i < 82)
@@ -101,6 +95,25 @@ function App() {
 								: "1px solid #DBDBDB",
 						borderTop:
 							i >= 0 && i < 9 ? "3px solid #00367F" : "1px solid #DBDBDB",
+						backgroundColor: !Number.isNaN(number[i])
+							? "white"
+							: ((i >= Math.floor(choose / 9) * 9 &&
+									i < Math.floor(choose / 9) * 9 + 9) ||
+									Array.from(
+										{ length: 9 },
+										(_, k) => k * 9 + (choose % 9)
+									).includes(i) ||
+									Array.from(
+										{ length: 9 },
+										(_, k) =>
+											(k % 3) +
+											Math.floor(choose / 3) * 3 +
+											Math.floor(k / 3) * 9 -
+											9 * ~~((choose % 27) / 9)
+									).includes(i)) &&
+							  i !== choose
+							? "#E2EBF3"
+							: "",
 					}}
 					onClick={() => (choose === i ? setChoose(NaN) : setChoose(i))}
 				>
@@ -162,8 +175,8 @@ function App() {
 		return arr;
 	}
 	return (
-		<div>
-			<h1>Sudoku solver</h1>
+		<div style={{ textAlign: "center" }}>
+			<h1 style={{ color: "#00367F" }}>Sudoku solver</h1>
 
 			<div className={styles.board}>{generateBoard()}</div>
 			<div className={styles.numCont}>
