@@ -14,9 +14,9 @@ function isValid(board, n, y, x) {
 	}
 	// grid check
 	let h = Math.floor(x / 3);
-	let u = Math.floor(y / 3);
+	let v = Math.floor(y / 3);
 
-	for (let i = u * 3; i < u * 3 + 3; i++) {
+	for (let i = v * 3; i < v * 3 + 3; i++) {
 		for (let j = h * 3; j < h * 3 + 3; j++) {
 			if (i === y && x === j) continue;
 			if (board[i][j] === n) return false;
@@ -29,32 +29,6 @@ function isValid(board, n, y, x) {
 function App() {
 	const [choose, setChoose] = useState(NaN);
 	const [number, setNumber] = useState(Array.from({ length: 81 }, () => NaN));
-	// const [error, setError] = useState("");
-
-	// works soo slow i don't know why
-
-	// window.addEventListener("keydown", (e) => {
-	// 	if (e.key >= "1" && e.key <= "9" && !Number.isNaN(choose)) {
-	// 		let tmp = [...number];
-	// 		tmp[choose] = Number(e.key);
-
-	// 		setNumber(tmp);
-	// 	}
-	// 	if (
-	// 		(e.key === "Delete" || e.key === "Backspace") &&
-	// 		!Number.isNaN(choose)
-	// 	) {
-	// 		let tmp = [...number];
-	// 		tmp[choose] = NaN;
-
-	// 		setNumber(tmp);
-	// 	}
-	// 	if (e.key === "Enter") {
-	// 		solveSudoku(
-	// 			Array.from({ length: 9 }, (_, i) => number.slice(i * 9, i * 9 + 9))
-	// 		);
-	// 	}
-	// });
 
 	function solveSudoku(board) {
 		function solver(board) {
@@ -75,12 +49,11 @@ function App() {
 			}
 			return true;
 		}
-		// setError("");
+
 		setChoose(NaN);
 		solver(board);
 		setNumber([].concat(...board));
 	}
-
 	function generateBoard() {
 		let arr = [];
 		for (let i = 0; i < 9 * 9; i++) {
@@ -97,21 +70,20 @@ function App() {
 							i >= 0 && i < 9 ? "3px solid #00367F" : "1px solid #DBDBDB",
 						backgroundColor: !Number.isNaN(number[i])
 							? "white"
-							: ((i >= Math.floor(choose / 9) * 9 &&
+							: (i >= Math.floor(choose / 9) * 9 &&
 									i < Math.floor(choose / 9) * 9 + 9) ||
-									Array.from(
-										{ length: 9 },
-										(_, k) => k * 9 + (choose % 9)
-									).includes(i) ||
-									Array.from(
-										{ length: 9 },
-										(_, k) =>
-											(k % 3) +
-											Math.floor(choose / 3) * 3 +
-											Math.floor(k / 3) * 9 -
-											9 * ~~((choose % 27) / 9)
-									).includes(i)) &&
-							  i !== choose
+							  Array.from(
+									{ length: 9 },
+									(_, k) => k * 9 + (choose % 9)
+							  ).includes(i) ||
+							  Array.from(
+									{ length: 9 },
+									(_, k) =>
+										(k % 3) +
+										Math.floor(choose / 3) * 3 +
+										Math.floor(k / 3) * 9 -
+										9 * ~~((choose % 27) / 9)
+							  ).includes(i)
 							? "#E2EBF3"
 							: "",
 					}}
